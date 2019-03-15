@@ -84,7 +84,7 @@ Micrometer is provided through Spring Boot as well, out of the box.
 
    By creating a custom Bean and then injecting the metrics registry, we can add any values we wish
 
-   We can also see the values at http://localhost:8080/actuator/metrics/received.messages
+   We can also see the values at http://localhost:8080/anything/metrics/received.messages
    
    I also used the @Slf4j annotation within the service simply to show how easy it is to log
 
@@ -100,3 +100,5 @@ Micrometer is provided through Spring Boot as well, out of the box.
 ## Links
 * https://www.callicoder.com/spring-boot-actuator/
 * https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html
+* https://micrometer.io/docs/guide/healthAsGauge
+* https://stackoverflow.com/questions/50193287/exporting-metrics-to-files-when-using-spring-boot-2-0

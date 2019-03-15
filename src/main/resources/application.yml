@@ -1,0 +1,34 @@
+info:
+  app:
+    version: 0.0.1
+    name: just anything we wish
+    extra: this too
+    java:
+      version: ${java.version}
+  author:
+    name: abc
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /anything
+  metrics:
+    export:
+      statsd:
+        flavor: datadog
+        enabled: false
+    enabled: true
+    web:
+      server:
+        auto-time-requests: true
+metrics:
+  config:
+    tag1: anything-i-want
+

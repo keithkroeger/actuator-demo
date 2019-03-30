@@ -2,8 +2,15 @@ buildscript {
 	repositories {
 		mavenCentral()
 	}
+	ext{
+		verifier_version = '2.1.0.RELEASE'
+		springboot_version = '2.1.0.RELEASE'
+	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springboot_version}")
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifier_version}"
+		classpath "com.jayway.restassured:rest-assured:2.5.0"
+		classpath "com.jayway.restassured:spring-mock-mvc:2.5.0"
 	}
 }
 
@@ -13,6 +20,8 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'groovy'
+apply plugin: 'spring-cloud-contract'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -33,10 +42,55 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor "org.projectlombok:lombok"
+
+	testCompile 'org.codehaus.groovy:groovy-all:2.4.6'
+	// example with adding Spock core and Spock Spring
+	testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+	testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
+	testCompile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+	testCompile 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
+	testCompile 'org.springframework.cloud:spring-cloud-contract-wiremock:${verifier_version}'
+
+	testCompile "com.jayway.restassured:rest-assured:2.5.0"
+	testCompile "com.jayway.restassured:spring-mock-mvc:2.5.0"
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+		mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:${verifier_version}"
 	}
 }
+
+contracts {
+	testFramework ='JUNIT'
+	testMode = 'MockMvc'
+	generatedTestSourcesDir = project.file("${project.buildDir}/generated-test-sources/contracts")
+	generatedTestResourcesDir = project.file("${project.buildDir}/generated-test-resources/contracts")
+//	contractsDslDir = "${project.rootDir}/src/test/resources/contracts"
+	basePackageForTests = 'com.example.demo.verifier'
+	stubsOutputDir = project.file("${project.buildDir}/stubs")
+
+	contractsPath = ''
+//	contractsWorkOffline = false
+	contractRepository {
+		cacheDownloadedContracts(true)
+	}
+}
+
+task verifierStubsJar(type: Jar, dependsOn: 'generateClientStubs') {
+	baseName = project.name
+	classifier = contracts.stubsSuffix
+	from contractVerifier.stubsOutputDir
+}
+
+project.artifacts {
+	archives task
+}
+
+tasks.create(type: Copy, name: 'copyContracts') {
+	from contracts.contractsDslDir
+	into contracts.stubsOutputDir
+}
+
+verifierStubsJar.dependsOn 'copyContracts'

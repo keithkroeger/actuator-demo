@@ -45,8 +45,8 @@ dependencyManagement {
 }
 
 
-contracts {
-    baseClassForTests = 'com.example'
+contracts{
+    baseClassForTests = 'com.example.demo.BaseMockMvcSpec'
     testMode = 'MockMvc'
 }
 

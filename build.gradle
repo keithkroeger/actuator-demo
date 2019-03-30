@@ -24,6 +24,7 @@ repositories {
 
 ext {
 	set('springBootAdminVersion', '2.1.3')
+	set('springCloudContractVersion', '2.1.0.RELEASE')
 }
 
 dependencies {
@@ -38,5 +39,39 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:${springCloudContractVersion}"
+
 	}
+}
+
+
+contracts {
+    baseClassForTests = 'com.example'
+    testMode = 'MockMvc'
+}
+
+
+task stubsJar(type: Jar) {
+    classifier = "stubs"
+
+    into("META-INF/${project.group}/${project.name}/${project.version}/mappings") {
+        include('**/*.*')
+        from("${project.rootDir}/build/generated-snippets/stubs",
+                "${project.rootDir}/build/stubs/META-INF/${project.group}/${project.name}/${project.version}/mappings")
+    }
+
+    into("META-INF/${project.group}/${project.name}/${project.version}/contracts") {
+        include('**/*.*')
+        from("${project.rootDir}/build/generated-snippets/contracts", "${project.rootDir}/src/test/resources/contracts")
+    }
+}
+
+stubsJar.mustRunAfter(generateClientStubs)
+stubsJar.dependsOn(test)
+verifierStubsJar.enabled = true
+
+
+artifacts {
+
+   archives stubsJar
 }

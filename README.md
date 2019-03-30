@@ -95,7 +95,9 @@ Micrometer is provided through Spring Boot as well, out of the box.
 4. Created custom LogMeterRegistry that logs metrics from Micrometer into the spring log
    
    By adding a bean to MetricsConfig, we can now run this application
-   and see metrics in the consol.
+   and see metrics in the console.
+
+5. Added Stub generation
 
 ## Links
 * https://www.callicoder.com/spring-boot-actuator/

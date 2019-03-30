@@ -32,3 +32,5 @@ metrics:
   config:
     tag1: anything-i-want
 
+server:
+  port: 8090

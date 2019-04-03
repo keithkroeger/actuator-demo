@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest(classes = {DemoApplication.class})
 @AutoConfigureMockMvc
 @SuppressWarnings("unused")
-public abstract class ContractVerifierBase {
+public abstract class BaseClassForVerifier {
 
     @Autowired
     private MockMvc mockMvc;

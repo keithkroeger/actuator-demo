@@ -19,4 +19,10 @@ public class HelloWorld {
         return "{\"status\":\"Hello, is it me you're looking for?\"}";
     }
 
+    @GetMapping("/test2")
+    public String helloWorld2(){
+        helloService.handleMessage("test");
+        return "Hello, is it me you're looking for?";
+    }
+
 }

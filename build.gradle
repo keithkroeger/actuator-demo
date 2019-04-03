@@ -70,7 +70,8 @@ dependencyManagement {
 
 contracts{
     testMode = 'MockMvc'
-	packageWithBaseClasses = 'com.example.demo'
+//	packageWithBaseClasses = 'com.example.demo'
+	baseClassForTests = 'com.example.demo.BaseClassForVerifier'
 }
 
 

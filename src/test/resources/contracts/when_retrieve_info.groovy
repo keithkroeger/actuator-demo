@@ -7,6 +7,6 @@ Contract.make {
     }
     response {
         status 200
-        body("Hello, is it me you\'re looking for?")
+        body("{\"status\":\"Hello, is it me you're looking for?\"}")
     }
 }

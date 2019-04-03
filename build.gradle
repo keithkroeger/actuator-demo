@@ -53,6 +53,10 @@ dependencies {
 
 	testCompile "com.jayway.restassured:rest-assured:2.5.0"
 	testCompile "com.jayway.restassured:spring-mock-mvc:2.5.0"
+
+	testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
+	testCompile("org.springframework.cloud:spring-cloud-contract-wiremock")
+	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 }
 
 dependencyManagement {
@@ -65,8 +69,8 @@ dependencyManagement {
 
 
 contracts{
-    baseClassForTests = 'com.example.demo.BaseClassForVerifier'
     testMode = 'MockMvc'
+	packageWithBaseClasses = 'com.example.demo'
 }
 
 
@@ -87,7 +91,7 @@ task stubsJar(type: Jar) {
 
 stubsJar.mustRunAfter(generateClientStubs)
 stubsJar.dependsOn(test)
-verifierStubsJar.enabled = true
+verifierStubsJar.enabled = false
 
 
 artifacts {

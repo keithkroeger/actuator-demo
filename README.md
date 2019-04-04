@@ -99,6 +99,15 @@ Micrometer is provided through Spring Boot as well, out of the box.
 
 5. Added Stub generation
 
+6. Enhanced Stub generation by generating some stubs through unit tests
+
+7. Following H2 introduction at 
+   http://www.springboottutorial.com/spring-boot-and-h2-in-memory-database
+   
+   Including access to http://localhost:8090/h2-console connecting to ```jdbc:h2:mem:testdb```
+
+8. Added spring data rest to test out retrieval
+
 ## Links
 * https://www.callicoder.com/spring-boot-actuator/
 * https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html

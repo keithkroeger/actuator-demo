@@ -28,15 +28,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 public class OtherVerifier {
 
-    @Autowired
-    private MockMvc mockMvc;
+   @Autowired
+   private MockMvc mockMvc;
 
-    @Before
-    public void setup() {
+   @Before
+   public void setup() {
    }
 
-    @Test
-    public void should_grant_a_beer_when_person_is_old_enough() throws Exception {
+   @Test
+   public void should_grant_a_beer_when_person_is_old_enough() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/test")
                 .header("Auth","abc")
                 .contentType(MediaType.APPLICATION_JSON))

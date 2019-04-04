@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringRunner.class)
@@ -40,6 +41,7 @@ public class OtherVerifier {
                 .header("Auth","abc")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value("Hello, is it me you're looking for?"))
+                .andExpect(header().string("Content-Type","application/json;charset=UTF-8"))
                 /*
                 .andDo(WireMockRestDocs.verify()
                         .contentType(MediaType.valueOf("application/json"))

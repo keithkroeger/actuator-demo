@@ -37,14 +37,15 @@ public class OtherVerifier {
     @Test
     public void should_grant_a_beer_when_person_is_old_enough() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/test")
-                .content("{\"age\":25}")
+                .header("Auth","abc")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value("Hello, is it me you're looking for?"))
+                /*
                 .andDo(WireMockRestDocs.verify()
-                        .jsonPath("$[?(@.age >= 20)]")
                         .contentType(MediaType.valueOf("application/json"))
                         .stub("shouldGrantABeerIfOldEnough"))
-                .andDo(MockMvcRestDocumentation.document("shouldGrantABeerIfOldEnough",
+                */
+                .andDo(MockMvcRestDocumentation.document("when_we_try",
                         SpringCloudContractRestDocs.dslContract()));
     }
 

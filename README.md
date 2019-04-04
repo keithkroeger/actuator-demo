@@ -97,11 +97,15 @@ Micrometer is provided through Spring Boot as well, out of the box.
    By adding a bean to MetricsConfig, we can now run this application
    and see metrics in the console.
 
-5. Added Stub generation
+## Stub Areas
 
-6. Enhanced Stub generation by generating some stubs through unit tests
+1. Added Stub generation
 
-7. Following H2 introduction at 
+2. Enhanced Stub generation by generating some stubs through unit tests
+
+## H2 Areas
+
+1. Following H2 introduction at 
    http://www.springboottutorial.com/spring-boot-and-h2-in-memory-database
    
    Including access to http://localhost:8090/h2-console connecting to ```jdbc:h2:mem:testdb```
